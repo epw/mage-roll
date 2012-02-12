@@ -61,7 +61,7 @@ The argument count_rerolled_ones, defaulting to False, is passed on to the
 roll() function, and designates whether ones rerolled because of exploding tens
 should count against the total number of successes."""
 
-    regex = re.match (r'(\d+)\s*(?:diff|[/])\s*(\d+)', param)
+    regex = re.match (r'\s*(\d+)\s*(?:diff|[/])\s*(\d+)', param)
     diff = None
     botch = False
     if regex:
