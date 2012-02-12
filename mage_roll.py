@@ -49,25 +49,29 @@ output - Whether to print results to stdout [default False]
             successes -= ones
     return (successes, rolls)
 
-def parse_roll (param, prefix=""):
+def parse_roll (param, prefix="", count_rerolled_ones=False):
     """Parse a string with a roll expression and execute it. Roll expressions begin
 with the number of dice, are followed by a / or the word "diff", and end
 with the roll's difficulty. The second two parts can be left out if desired,
 resulting in only the dice results being reported.
 
-The optional prefix argument is outputted inside the [] in the output."""
+The optional prefix argument is outputted inside the [] in the output.
+
+The argument count_rerolled_ones, defaulting to False, is passed on to the
+roll() function, and designates whether ones rerolled because of exploding tens
+should count against the total number of successes."""
 
     regex = re.match (r'(\d+)\s*(?:diff|[/])\s*(\d+)', param)
     diff = None
     botch = False
     if regex:
         diff = int(regex.group(2))
-        result = roll (int(regex.group(1)), diff)
+        result = roll (int(regex.group(1)), diff, count_rerolled_ones)
     else:
         regex = re.match (r'(\d+)', param)
         if regex:
             diff = None
-            result = roll (int(regex.group(1)), diff)
+            result = roll (int(regex.group(1)), diff, count_rerolled_ones)
         else:
             return None
     rolls = ' '.join (map (str, result[1]))

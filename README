@@ -1,2 +1,40 @@
 This project isolates the functional code from the Google Wave
 "mage-roll" bot, for use in other programs.
+
+To install, download the sources and from the mage-roll directory run:
+   $ sudo python setup.py install
+
+You can then use the module by running a Python shell and typing:
+    >>> import mage_roll
+    >>> mage_roll.parse_roll ("3 diff 6")
+
+The parse_roll function takes a string formatted as a number of dice,
+and optionally the word "diff" or a / followed by the difficulty. It
+outputs a string indicating the input it is acting on, the results of
+the dice rolled, and the number of successes calculated if a
+difficulty is given.
+
+parse_roll (param, prefix="", count_rerolled_ones=False)
+	   => "[" + prefix + param + "]: " + rolls [+ " Successes: " + successes
+	      [+ " BOTCH!"]]
+
+param - The string to interpret specifying how many dice to roll and
+      the difficulty.
+prefix - A string to put near the beginning of the returned output.
+count_rerolled_ones - Whether an exploding ten followed by a one
+      cancel each other out.
+
+The roll() function can also be used directly:
+
+roll (dice, difficulty=6, count_rerolled_ones=False, output=False)
+     => (successes, rolls)
+
+Simulate rolling dice using revised old/classic World of Darkness rules.
+Ones subtract successes, and tens explode. Ones but no successes causes a
+botch.
+
+dice - Size of dice pool (number of dice being rolled)
+difficulty - Minimum value counted as a success [default 6]
+count_rerolled_ones - Whether ones on rerolls from tens should subtract
+    successes [default False]
+output - Whether to print results to stdout [default False]
