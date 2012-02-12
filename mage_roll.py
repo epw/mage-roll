@@ -49,7 +49,14 @@ output - Whether to print results to stdout [default False]
             successes -= ones
     return (successes, rolls)
 
-def parse_roll (param):
+def parse_roll (param, prefix=""):
+    """Parse a string with a roll expression and execute it. Roll expressions begin
+with the number of dice, are followed by a / or the word "diff", and end
+with the roll's difficulty. The second two parts can be left out if desired,
+resulting in only the dice results being reported.
+
+The optional prefix argument is outputted inside the [] in the output."""
+
     regex = re.match (r'(\d+)\s*(?:diff|[/])\s*(\d+)', param)
     diff = None
     botch = False
@@ -78,4 +85,5 @@ def parse_roll (param):
     botchstr = ""
     if botch:
         botchstr = " BOTCH!"
-    return "[%s]: %s; successes: %d%s" % (param, rolls, successes, botchstr)
+    return "[%s%s]: %s; successes: %d%s" % (prefix, param, rolls, successes,
+                                            botchstr)
