@@ -84,7 +84,7 @@ should count against the total number of successes."""
                and len (filter (lambda r: r == 1, result[1])) > 0:
                 botch = True
     else:
-        return "[%s]: %s" % (param, rolls)
+        return "[%s%s]: %s" % (prefix, param, rolls)
 
     botchstr = ""
     if botch:
